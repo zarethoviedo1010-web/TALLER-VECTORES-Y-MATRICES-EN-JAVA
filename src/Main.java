@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int cantidadEstudiantes,aprobados,reprobados;
+        /*int cantidadEstudiantes,aprobados,reprobados;
         double[] notas;
         double suma,promedio,notaMayor,notaMenor,nota;
         Scanner teclado = new Scanner(System.in);
@@ -53,6 +53,77 @@ public class Main {
         System.out.println("Estudiantes aprobados: " + aprobados);
         System.out.println("Estudiantes reprobados: " + reprobados);
 
-        teclado.close();
+        teclado.close();*/
+        Scanner sc = new Scanner(System.in);
+
+        // Inicialización de variables
+        int numEstudiantes = 0;
+        int  numMaterias = 0;
+        int sumaEstudiante, sumaMateria, sumaGeneral = 0;
+        float nota;
+
+        // Solicitar número de estudiantes y materias
+        System.out.print("Ingrese el número de estudiantes: ");
+        numEstudiantes = sc.nextInt();
+
+        System.out.print("Ingrese el número de materias: ");
+        numMaterias = sc.nextInt();
+
+        int [][] notas = new int[numEstudiantes][numMaterias];
+
+        // Registrar notas con validación
+        for (int i = 0; i < numEstudiantes; i++) {
+            for (int j = 0; j < numMaterias; j++) {
+                do {
+                    System.out.print("Ingrese la nota del estudiante " + (i + 1) +
+                            " en la materia " + (j + 1) + " (0 a 5): ");
+                    nota = sc.nextInt();
+                } while (nota < 0 || nota > 5);
+                notas[i][j] = nota;
+            }
+        }
+
+        // Mostrar matriz en forma de tabla
+        System.out.println("\nMatriz de notas:");
+        for (double i = 0; i < numEstudiantes; i++) {
+            for (int j = 0; j < numMaterias; j++) {
+                System.out.print(notas[i][j] + "\t");
+            }
+            System.out.println();
+        }
+
+        // Calcular promedio por estudiante
+        System.out.println("\nPromedio por estudiante:");
+        for (double i = 0; i < numEstudiantes; i++) {
+            sumaEstudiante = 0;
+            for (int j = 0; j < numMaterias; j++) {
+                sumaEstudiante += notas[i][j];
+            }
+            System.out.println("Estudiante " + (i + 1) + ": " +
+                    (sumaEstudiante / numMaterias));
+        }
+
+        // Calcular promedio por materia
+        System.out.println("\nPromedio por materia:");
+        for (double j = 0; j < numMaterias; j++) {
+            sumaMateria = 0;
+            for (double i = 0; i < numEstudiantes; i++) {
+                sumaMateria += notas[i][j];
+            }
+            System.out.println("Materia " + (j + 1) + ": " +
+                    (sumaMateria / numEstudiantes));
+        }
+        // Calcular promedio general
+        for (double i = 0; i < numEstudiantes; i++) {
+            for (int j = 0; j < numMaterias; j++) {
+                sumaGeneral += notas[i][j];
+            }
+        }
+        System.out.println("|Promedio general: " +
+                (sumaGeneral / (numEstudiantes * numMaterias)));
+
+        sc.close();
+
+
     }
 }
